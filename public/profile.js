@@ -71,7 +71,7 @@ function paintEvents() {
     <div class="list-row">
       <img src="${e.image}" style="width:50px;height:50px;border-radius:8px;object-fit:cover;">
       <div class="info"><h5>${esc(e.title)}</h5><p>${esc(e.date)} · ${app.rsvp[e.id]}</p></div>
-      <div class="actions"><a class="btn-glass" href="/app.html#${e.id}">View</a></div>
+      <div class="actions"><a class="btn-glass" href="/index.html#${e.id}">View</a></div>
     </div>`).join('') : '<p style="color:var(--text-s);font-size:13px;">No RSVPs yet.</p>';
 }
 
@@ -140,9 +140,9 @@ function wireProfile() {
   $('#profileForm').addEventListener('submit', (e) => {
     e.preventDefault(); const fd = new FormData(e.target); const d = Object.fromEntries(fd);
     Object.assign(user, { name: d.name, bio: d.bio, role: d.role, region: d.region, age: +d.age, gender: d.gender });
-    persist(); toast('Profile saved'); setTimeout(() => location.href = '/app.html', 800);
+    persist(); toast('Profile saved'); setTimeout(() => location.href = '/index.html', 800);
   });
-  $('#logoutBtn').addEventListener('click', () => { if (confirm('Log out?')) { localStorage.removeItem(LS.user); location.href = '/app.html'; } });
+  $('#logoutBtn').addEventListener('click', () => { if (confirm('Log out?')) { localStorage.removeItem(LS.user); location.href = '/index.html'; } });
 
   $$('.modal-overlay').forEach(o => o.addEventListener('click', (e) => { if (e.target === o || e.target.matches('[data-close]')) o.classList.remove('open'); }));
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') $$('.modal-overlay.open').forEach(o => o.classList.remove('open')); });

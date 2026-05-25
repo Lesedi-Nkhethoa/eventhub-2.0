@@ -367,7 +367,7 @@ function wirePost(eid) {
   post.querySelector(`[data-download="${eid}"]`)?.addEventListener('click', (ev) => { ev.stopPropagation(); downloadFlyer(e); });
   post.querySelectorAll('[data-rsvp]').forEach(b => b.addEventListener('click', () => toggleRsvp(eid, b.dataset.kind)));
   post.querySelector(`[data-comments="${eid}"]`)?.addEventListener('click', () => toggleComments(eid));
-  post.querySelector(`[data-share="${eid}"]`)?.addEventListener('click', () => { navigator.clipboard?.writeText(location.origin + '/app.html#' + eid); toast('Link copied'); });
+  post.querySelector(`[data-share="${eid}"]`)?.addEventListener('click', () => { navigator.clipboard?.writeText(location.origin + '/index.html#' + eid); toast('Link copied'); });
 
   const carousel = post.querySelector(`[data-carousel="${eid}"]`);
   const move = (delta) => {
@@ -403,7 +403,7 @@ function wirePost(eid) {
     const a = b.dataset.act;
     if (a === 'delete') { if (confirm('Delete this event?')) { state.events = state.events.filter(x => x.id !== eid); saveAppState(); buildFeed(); renderHero(); toast('Event deleted'); } }
     else if (a === 'attendees') { openAttendeesModal(e); }
-    else if (a === 'copy') { navigator.clipboard?.writeText(location.origin + '/app.html#' + eid); toast('Link copied'); }
+    else if (a === 'copy') { navigator.clipboard?.writeText(location.origin + '/index.html#' + eid); toast('Link copied'); }
     else if (a === 'report') { toast('Reported — thanks'); }
   }));
 }
@@ -532,7 +532,7 @@ function openEventModal(eid) {
   $('[data-mod-prev]')?.addEventListener('click', () => move(-1));
   $('[data-mod-next]')?.addEventListener('click', () => move(1));
   $$('[data-mod-rsvp]').forEach(b => b.addEventListener('click', () => { toggleRsvp(eid, b.dataset.modRsvp); closeEventModal(); }));
-  $('[data-mod-share]')?.addEventListener('click', () => { navigator.clipboard?.writeText(location.origin + '/app.html#' + eid); toast('Link copied'); });
+  $('[data-mod-share]')?.addEventListener('click', () => { navigator.clipboard?.writeText(location.origin + '/index.html#' + eid); toast('Link copied'); });
   $('[data-mod-tix]')?.addEventListener('click', () => { closeEventModal(); openTicketModal(eid); });
 }
 function closeEventModal() { $('#eventModal').classList.remove('open'); document.body.style.overflow = ''; }
@@ -764,8 +764,8 @@ function boot() {
   renderSidebar(); renderHero(); buildFeed(); renderRightPanel(); updateNavAvatar();
   // ?created
   const params = new URLSearchParams(location.search);
-  if (params.get('created') === '1') { toast('Event published!'); history.replaceState({}, '', '/app.html'); }
-  if (params.get('updated') === '1') { toast('Event updated!'); history.replaceState({}, '', '/app.html'); }
+  if (params.get('created') === '1') { toast('Event published!'); history.replaceState({}, '', '/index.html'); }
+  if (params.get('updated') === '1') { toast('Event updated!'); history.replaceState({}, '', '/index.html'); }
   // hash deep link
   if (location.hash) { const id = location.hash.slice(1); setTimeout(() => openEventModal(id), 200); }
 }

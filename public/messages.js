@@ -13,7 +13,7 @@ function timeAgo(ts){const d=Math.max(1,Date.now()-ts);const m=Math.floor(d/6000
 if (localStorage.getItem('eventhub_theme') === 'light') document.documentElement.setAttribute('data-theme','light');
 
 let user = JSON.parse(localStorage.getItem(LS.user) || 'null');
-if (!user) { location.href = '/app.html'; throw new Error('login required'); }
+if (!user) { location.href = '/index.html'; throw new Error('login required'); }
 let users = JSON.parse(localStorage.getItem(LS.users) || '[]');
 let events = JSON.parse(localStorage.getItem(LS.events) || '[]');
 let inbox = JSON.parse(localStorage.getItem(LS.inbox) || 'null') || { conversations: [], messages: {} };
