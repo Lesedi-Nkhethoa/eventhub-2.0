@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Profile — EventHub</title>
+<link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+<nav class="nav">
+  <a href="/app.html" class="logo"><span class="bolt">⚡</span> EventHub</a>
+  <div class="nav-actions" style="margin-left:auto;">
+    <a class="btn-glass" href="/app.html">← Feed</a>
+    <a class="btn-glass" href="/messages.html">Messages</a>
+  </div>
+</nav>
+
+<div id="authGate" hidden>
+  <div class="page-head"><h1>Sign in</h1><p>Manage your profile and tickets.</p></div>
+  <div class="page-body">
+    <div class="section-card">
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-auth="login">Log in</button>
+        <button class="auth-tab" data-auth="signup">Sign up</button>
+      </div>
+      <form id="loginForm">
+        <div class="form-group"><label>Email</label><input type="email" name="email" required></div>
+        <div class="form-group"><label>Password</label><input type="password" name="password" required></div>
+        <button class="btn-primary" style="width:100%;justify-content:center;padding:12px;">Log in</button>
+      </form>
+      <form id="signupForm" hidden>
+        <div class="form-group"><label>Full name</label><input name="name" required></div>
+        <div class="form-group"><label>Email</label><input type="email" name="email" required></div>
+        <div class="form-row">
+          <div class="form-group"><label>Password</label><input type="password" name="password" minlength="6" required></div>
+          <div class="form-group"><label>Confirm</label><input type="password" name="confirm" minlength="6" required></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Role</label><select name="role"><option value="attendee">Attendee</option><option value="organizer">Organizer</option></select></div>
+          <div class="form-group"><label>Region</label><input name="region" required></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Age</label><input type="number" name="age" min="13" required></div>
+          <div class="form-group"><label>Gender</label><select name="gender"><option>Female</option><option>Male</option><option>Non-binary</option><option>Prefer not to say</option></select></div>
+        </div>
+        <button class="btn-primary" style="width:100%;justify-content:center;padding:12px;">Create account</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div id="profileWrap" hidden>
+  <div class="page-head"><h1>Your profile</h1><p>How others see you on EventHub.</p></div>
+  <div class="page-body">
+    <div class="section-card">
+      <h3>Avatar</h3>
+      <div style="display:flex;align-items:center;gap:18px;">
+        <div id="avatarPreview" style="width:90px;height:90px;border-radius:50%;background:var(--grad);display:grid;place-items:center;color:#fff;font-weight:700;font-size:28px;overflow:hidden;flex-shrink:0;"></div>
+        <div style="flex:1;">
+          <input type="file" id="avatarFile" accept="image/*" hidden>
+          <button class="btn-glass" id="uploadAvatar">Upload image</button>
+          <button class="btn-glass" id="urlAvatar">Paste URL</button>
+          <button class="btn-danger" id="clearAvatar" style="margin-left:6px;">Remove</button>
+        </div>
+      </div>
+    </div>
+
+    <form id="profileForm" class="section-card">
+      <h3>Details</h3>
+      <div class="form-group"><label>Display name</label><input name="name" required></div>
+      <div class="form-group"><label>Bio</label><textarea name="bio" rows="3" maxlength="280"></textarea></div>
+      <div class="form-row">
+        <div class="form-group"><label>Role</label><select name="role"><option value="attendee">Attendee</option><option value="organizer">Organizer</option></select></div>
+        <div class="form-group"><label>Region</label><input name="region" required></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Age</label><input type="number" name="age" min="13" required></div>
+        <div class="form-group"><label>Gender</label><select name="gender"><option>Female</option><option>Male</option><option>Non-binary</option><option>Prefer not to say</option></select></div>
+      </div>
+      <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:8px;">
+        <button type="button" class="btn-danger" id="logoutBtn">Log out</button>
+        <button class="btn-primary">Save profile</button>
+      </div>
+    </form>
+
+    <div class="section-card">
+      <h3>Connections</h3>
+      <div id="connList"></div>
+      <h4 style="font-family:'DM Sans';font-size:13px;color:var(--text-s);margin:18px 0 8px;text-transform:uppercase;letter-spacing:.08em;">Suggested</h4>
+      <div id="suggList"></div>
+    </div>
+
+    <div class="section-card">
+      <h3>My events</h3>
+      <h4 style="font-family:'DM Sans';font-size:13px;color:var(--text-s);margin-bottom:8px;text-transform:uppercase;letter-spacing:.08em;">Created by me</h4>
+      <div id="createdList"></div>
+      <h4 style="font-family:'DM Sans';font-size:13px;color:var(--text-s);margin:18px 0 8px;text-transform:uppercase;letter-spacing:.08em;">RSVP'd</h4>
+      <div id="rsvpList"></div>
+    </div>
+
+    <div class="section-card">
+      <h3>My tickets</h3>
+      <div id="ticketsList"></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="ticketModal"><div class="modal" id="ticketContent"></div></div>
+<div id="toast" class="toast"></div>
+<script src="/profile.js"></script>
+</body>
+</html>

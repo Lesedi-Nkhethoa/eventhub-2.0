@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>EventHub — Discover events in South Africa</title>
+<meta name="description" content="Discover, RSVP, and create events across South Africa. EventHub: where the city's calendar lives." />
+<link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+<nav class="nav">
+  <a href="/app.html" class="logo"><span class="bolt">⚡</span> EventHub</a>
+  <div class="nav-search">
+    <span class="ico">🔍</span>
+    <input id="navSearch" placeholder="Search events, organizers, venues…" />
+  </div>
+  <div class="nav-actions">
+    <button class="icon-btn" id="btnSaved" title="Saved">🔖<span class="badge" id="savedBadge" hidden></span></button>
+    <button class="icon-btn" id="btnNotif" title="Notifications">🔔<span class="badge" id="notifBadge" hidden></span></button>
+    <a class="icon-btn" href="/messages.html" title="Messages">💬</a>
+    <button class="icon-btn" id="btnTheme" title="Theme">🌙</button>
+    <a class="btn-primary" href="/create.html">+ Create</a>
+    <div class="nav-avatar" id="navAvatar" title="Profile">?</div>
+  </div>
+</nav>
+
+<main class="app-shell">
+  <aside class="sidebar">
+    <div class="side-card">
+      <div class="side-title">Categories</div>
+      <div id="catList"></div>
+    </div>
+    <div class="side-card">
+      <div class="side-title">Trending now</div>
+      <div id="trendingList"></div>
+    </div>
+    <div class="side-card">
+      <div class="side-title">Top organizers</div>
+      <div id="orgList"></div>
+    </div>
+    <div class="side-card" style="font-size:11px;color:var(--text-d);">
+      <p>EventHub © 2026 · About · Privacy · Help</p>
+    </div>
+  </aside>
+
+  <section>
+    <div id="hero" class="hero"></div>
+    <div class="feed-tabs">
+      <button class="feed-tab active" data-tab="foryou">For You</button>
+      <button class="feed-tab" data-tab="following">Following</button>
+      <button class="feed-tab" data-tab="nearby">Nearby</button>
+    </div>
+    <div class="feed-sort">
+      <span id="feedCount">0 events</span>
+      <select id="sortSelect">
+        <option value="recent">Most Recent</option>
+        <option value="popular">Most Popular</option>
+        <option value="upcoming">Upcoming</option>
+      </select>
+    </div>
+    <div id="feed"></div>
+    <div style="text-align:center;margin:24px 0;">
+      <button id="loadMore" class="btn-glass">Load more events</button>
+    </div>
+  </section>
+
+  <aside class="rightpanel">
+    <div class="side-card">
+      <div class="side-title">This Week's Picks</div>
+      <div id="picksList"></div>
+    </div>
+    <div class="side-card">
+      <div class="side-title">Upcoming in Your Area</div>
+      <div id="nearbyList"></div>
+    </div>
+  </aside>
+</main>
+
+<!-- Toast -->
+<div id="toast" class="toast"></div>
+
+<!-- Auth modal -->
+<div class="modal-overlay" id="authModal">
+  <div class="modal">
+    <div class="modal-head"><h2>Welcome to EventHub</h2><button class="close" data-close>✕</button></div>
+    <div class="modal-body">
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-auth="login">Log in</button>
+        <button class="auth-tab" data-auth="signup">Sign up</button>
+      </div>
+      <form id="loginForm">
+        <div class="form-group"><label>Email</label><input type="email" name="email" required></div>
+        <div class="form-group"><label>Password</label><input type="password" name="password" required></div>
+        <button class="btn-primary" style="width:100%;justify-content:center;padding:12px;">Log in</button>
+      </form>
+      <form id="signupForm" hidden>
+        <div class="form-group"><label>Full name</label><input name="name" required></div>
+        <div class="form-group"><label>Email</label><input type="email" name="email" required></div>
+        <div class="form-row">
+          <div class="form-group"><label>Password</label><input type="password" name="password" minlength="6" required></div>
+          <div class="form-group"><label>Confirm</label><input type="password" name="confirm" minlength="6" required></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Role</label><select name="role"><option value="attendee">Attendee</option><option value="organizer">Organizer</option></select></div>
+          <div class="form-group"><label>Region</label><input name="region" placeholder="e.g. Cape Town" required></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Age</label><input type="number" name="age" min="13" max="100" required></div>
+          <div class="form-group"><label>Gender</label><select name="gender"><option>Female</option><option>Male</option><option>Non-binary</option><option>Prefer not to say</option></select></div>
+        </div>
+        <button class="btn-primary" style="width:100%;justify-content:center;padding:12px;">Create account</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Event detail modal -->
+<div class="modal-overlay" id="eventModal">
+  <div class="modal lg" id="eventModalContent"></div>
+</div>
+
+<!-- Ticket modal -->
+<div class="modal-overlay" id="ticketModal">
+  <div class="modal" id="ticketModalContent"></div>
+</div>
+
+<!-- Notifications drawer -->
+<div class="drawer-overlay" id="notifOverlay"></div>
+<aside class="drawer" id="notifDrawer">
+  <div class="drawer-head"><h3>Notifications</h3><button class="icon-btn" id="clearNotif" title="Clear">🗑</button><button class="icon-btn" data-close-drawer="notif">✕</button></div>
+  <div class="drawer-body" id="notifList"></div>
+</aside>
+
+<!-- Saved drawer -->
+<div class="drawer-overlay" id="savedOverlay"></div>
+<aside class="drawer" id="savedDrawer">
+  <div class="drawer-head"><h3>Saved Events</h3><button class="icon-btn" data-close-drawer="saved">✕</button></div>
+  <div class="drawer-body" id="savedList"></div>
+</aside>
+
+<script src="/app.js"></script>
+</body>
+</html>

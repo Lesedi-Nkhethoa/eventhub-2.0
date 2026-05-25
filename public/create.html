@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Create event — EventHub</title>
+<link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+<nav class="nav">
+  <a href="/app.html" class="logo"><span class="bolt">⚡</span> EventHub</a>
+  <div class="nav-actions" style="margin-left:auto;">
+    <a class="btn-glass" href="/app.html">← Back to feed</a>
+  </div>
+</nav>
+
+<div id="authGate" hidden>
+  <div class="page-head"><h1>Sign in to create events</h1><p>You need an account to publish to EventHub.</p></div>
+  <div class="page-body">
+    <div class="section-card">
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-auth="login">Log in</button>
+        <button class="auth-tab" data-auth="signup">Sign up</button>
+      </div>
+      <form id="loginForm">
+        <div class="form-group"><label>Email</label><input type="email" name="email" required></div>
+        <div class="form-group"><label>Password</label><input type="password" name="password" required></div>
+        <button class="btn-primary" style="width:100%;justify-content:center;padding:12px;">Log in</button>
+      </form>
+      <form id="signupForm" hidden>
+        <div class="form-group"><label>Full name</label><input name="name" required></div>
+        <div class="form-group"><label>Email</label><input type="email" name="email" required></div>
+        <div class="form-row">
+          <div class="form-group"><label>Password</label><input type="password" name="password" minlength="6" required></div>
+          <div class="form-group"><label>Confirm</label><input type="password" name="confirm" minlength="6" required></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Role</label><select name="role"><option value="organizer">Organizer</option><option value="attendee">Attendee</option></select></div>
+          <div class="form-group"><label>Region</label><input name="region" required></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Age</label><input type="number" name="age" min="13" required></div>
+          <div class="form-group"><label>Gender</label><select name="gender"><option>Female</option><option>Male</option><option>Non-binary</option><option>Prefer not to say</option></select></div>
+        </div>
+        <button class="btn-primary" style="width:100%;justify-content:center;padding:12px;">Create account</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div id="createWrap" hidden>
+  <div class="page-head">
+    <h1 id="pageTitle">Create event</h1>
+    <p id="pageSub">Publish to EventHub in under a minute.</p>
+  </div>
+  <div class="page-body">
+    <form id="createForm">
+      <div class="section-card">
+        <h3>Basics</h3>
+        <div class="form-group"><label>Event title</label><input name="title" required maxlength="120"></div>
+        <div class="form-row">
+          <div class="form-group"><label>Organization / your name</label><input name="organizer" required></div>
+          <div class="form-group"><label>Category</label><select name="cat" required>
+            <option>Music</option><option>Sports</option><option>Tech</option><option>Art</option><option>Business</option><option>Gaming</option><option>Festival</option><option>Lifestyle</option>
+          </select></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Price (e.g. "R 450" or "Free")</label><input name="price" required></div>
+          <div class="form-group"><label>Location</label><input name="location" required placeholder="Venue, City"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Start date</label><input type="date" name="startDate" required></div>
+          <div class="form-group"><label>End date (optional)</label><input type="date" name="endDate"></div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3>Description</h3>
+        <div class="form-group"><label>Short caption (shown on feed)</label><textarea name="caption" rows="2" maxlength="220" required></textarea></div>
+        <div class="form-group"><label>Full description</label><textarea name="desc" rows="5" required></textarea></div>
+      </div>
+
+      <div class="section-card">
+        <h3>Imagery</h3>
+        <div class="form-group">
+          <label>Main image</label>
+          <div class="file-drop" id="mainDrop">
+            <p style="font-size:14px;color:var(--text-s);">Drop an image here or click to choose</p>
+            <p style="font-size:11px;color:var(--text-d);margin-top:4px;">Max 5MB · JPG/PNG</p>
+          </div>
+          <input type="file" id="mainFile" accept="image/*" hidden>
+        </div>
+        <div class="form-group">
+          <label>Additional images (up to 3)</label>
+          <div class="image-grid-3" id="extraGrid">
+            <div class="file-drop" data-extra="0"><p style="font-size:12px;color:var(--text-d);">+ image</p></div>
+            <div class="file-drop" data-extra="1"><p style="font-size:12px;color:var(--text-d);">+ image</p></div>
+            <div class="file-drop" data-extra="2"><p style="font-size:12px;color:var(--text-d);">+ image</p></div>
+          </div>
+          <input type="file" id="extraFile" accept="image/*" hidden>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:10px;justify-content:flex-end;">
+        <a class="btn-glass" href="/app.html">Cancel</a>
+        <button class="btn-primary" id="submitBtn">Publish event</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+<script src="/create.js"></script>
+</body>
+</html>

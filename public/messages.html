@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Messages — EventHub</title>
+<link rel="stylesheet" href="/styles.css" />
+<link rel="stylesheet" href="/messages.css" />
+</head>
+<body>
+<nav class="nav">
+  <a href="/app.html" class="logo"><span class="bolt">⚡</span> EventHub</a>
+  <div class="nav-actions" style="margin-left:auto;">
+    <a class="btn-glass" href="/app.html">← Feed</a>
+    <a class="btn-glass" href="/profile.html">Profile</a>
+  </div>
+</nav>
+
+<div class="msg-shell">
+  <section class="msg-col conv-col">
+    <header><h3>Messages</h3><button class="icon-btn" id="newChat" title="New chat">+</button></header>
+    <div class="msg-search"><input id="convSearch" placeholder="Search conversations…"></div>
+    <div class="convs" id="convs"></div>
+  </section>
+  <section class="msg-col thread-col no-active">
+    <div id="threadEmpty" class="thread-empty"><div class="empty"><div class="ico">💬</div><h4>Pick a conversation</h4><p>Or tap + to find people.</p></div></div>
+    <div id="threadWrap" hidden style="display:flex;flex-direction:column;flex:1;min-height:0;">
+      <div class="thread-head">
+        <div class="av" id="threadAv">?</div>
+        <div class="info"><h4 id="threadName"></h4><p>● Online</p></div>
+        <button class="btn-glass" id="sharePostBtn">↗ Share post</button>
+      </div>
+      <div class="thread-body" id="thread"></div>
+      <div class="composer">
+        <button class="icon-btn" id="emojiBtn">😊</button>
+        <button class="icon-btn" id="attachBtn" title="Share post">📎</button>
+        <textarea id="msgInput" placeholder="Type a message…" rows="1"></textarea>
+        <button class="btn-primary" id="sendBtn">Send</button>
+        <div class="emoji-pop" id="emojiPop"></div>
+      </div>
+    </div>
+  </section>
+  <section class="msg-col share-col">
+    <header><h3>Quick share</h3></header>
+    <div style="padding:14px;overflow:auto;flex:1;">
+      <p style="font-size:12px;color:var(--text-s);margin-bottom:10px;">Recent events you can share into chat:</p>
+      <div id="shareList"></div>
+      <p style="font-size:11px;color:var(--text-d);margin-top:14px;">Selecting one inserts an event card into the active conversation.</p>
+    </div>
+  </section>
+</div>
+
+<div class="modal-overlay" id="discoverModal">
+  <div class="modal lg">
+    <div class="modal-head"><h2>Discover people</h2><button class="close" data-close>✕</button></div>
+    <div class="modal-body"><div id="discoverGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"></div></div>
+  </div>
+</div>
+<div class="modal-overlay" id="shareModal">
+  <div class="modal lg">
+    <div class="modal-head"><h2>Share an event</h2><button class="close" data-close>✕</button></div>
+    <div class="modal-body"><div id="shareGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"></div></div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+<script src="/messages.js"></script>
+</body>
+</html>
