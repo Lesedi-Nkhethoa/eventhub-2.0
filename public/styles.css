@@ -198,8 +198,8 @@ h1, h2, h3, h4 { font-family: 'Syne', sans-serif; letter-spacing: -0.01em; }
 .post-head .meta p { font-size: 11px; color: var(--text-d); margin-top: 2px; }
 .post-head .more { font-size: 20px; color: var(--text-s); padding: 6px; border-radius: 50%; }
 .post-head .more:hover { background: var(--surface-hv); }
-.post-img-wrap { position: relative; aspect-ratio: 4/5; max-height: 580px; overflow: hidden; background: var(--bg2); }
-.post-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+.post-img-wrap { position: relative; width: 100%; aspect-ratio: 16/10; max-height: 520px; overflow: hidden; background: var(--bg2); display: flex; align-items: center; justify-content: center; }
+.post-img-wrap img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center center; }
 .carousel-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 34px; height: 34px; border-radius: 50%; background: rgba(0,0,0,.5); color: #fff; display: grid; place-items: center; backdrop-filter: blur(8px); }
 .carousel-arrow.prev { left: 12px; } .carousel-arrow.next { right: 12px; }
 .carousel-count { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,.6); color: #fff; padding: 3px 10px; border-radius: 999px; font-size: 11px; font-weight: 600; }
