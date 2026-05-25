@@ -102,7 +102,7 @@ function wireSubmit() {
       const ev = events.find(x => x.id === editingId); if (!ev) return;
       Object.assign(ev, { title: d.title, organizer: d.organizer, cat: d.cat, price: d.price, location: d.location, caption: d.caption, desc: d.desc, date: dateStr, image: mainImage, images });
       localStorage.setItem(LS.events, JSON.stringify(events));
-      location.href = '/app.html?updated=1';
+      location.href = '/index.html?updated=1';
     } else {
       const ev = { id: uid(), title: d.title, organizer: d.organizer, orgInitials: initials(d.organizer), orgColor: colorFor(user.id), cat: d.cat, date: dateStr, location: d.location, going: 0, interested: 0, comments: 0, price: d.price, image: mainImage, images, caption: d.caption, desc: d.desc, posted: Date.now(), attendees: [], createdBy: user.id, createdAt: Date.now() };
       events.unshift(ev);
@@ -111,7 +111,7 @@ function wireSubmit() {
       localStorage.setItem(LS.events, JSON.stringify(events));
       localStorage.setItem(LS.user, JSON.stringify(user));
       localStorage.setItem(LS.users, JSON.stringify(users));
-      location.href = '/app.html?created=1';
+      location.href = '/index.html?created=1';
     }
   });
 }
